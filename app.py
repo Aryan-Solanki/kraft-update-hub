@@ -242,52 +242,213 @@ def index():
     # HTML TEMPLATE (SAFE & TESTED)
     # -----------------------------------------------------
     html = """
-    <h1>Math Module</h1>
+    <style>
+    /* Mobile layout up to 600px */
+    @media (max-width: 600px) {
 
-    <div id="update-box" style="padding:15px;background:#eef;border-radius:8px;">
+        /* Header resizing */
+        h1 {
+            font-size: 28px !important;
+        }
+
+        /* Update box full width */
+        #update-box {
+            width: 100% !important;
+        }
+
+        /* Stack form inputs vertically */
+        form {
+            flex-direction: column !important;
+            align-items: stretch !important;
+        }
+
+        form input {
+            width: 100% !important;
+        }
+
+        form button {
+            width: 100% !important;
+            margin-top: 8px !important;
+        }
+
+        /* Modal width on mobile */
+        #readmeModal > div {
+            max-width: 90% !important;
+        }
+    }
+
+    /* Tablet responsiveness */
+    @media (min-width: 601px) and (max-width: 900px) {
+        #update-box {
+            width: 70% !important;
+        }
+
+        form input {
+            width: 45% !important;
+        }
+
+        #readmeModal > div {
+            max-width: 75% !important;
+        }
+    }
+</style>
+<body style="background:#f4f6fc; margin:0; padding:0;">
+<div style="padding-left:30px; padding-right:30px;">
+
+    <div style="
+    background: #e9edff;
+    padding:30px;
+    padding-left:20px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom:25px;
+    ">
+    
+    <h1 style="
+        margin: 0;
+        font-size: 40px;
+        color: #22225c;
+        letter-spacing: 2px;
+        font-family: Arial, sans-serif;
+    ">
+  Math Module
+  </h1>
+</div>
+    <div id="update-box" style="
+    background:#ffffff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 1px 4px rgba(0,0,0,0.1);
+    width:350px;
+    margin-bottom:25px;
+    font-family:Arial, sans-serif;
+    font-size:16px;">
         Checking...
     </div>
 
-    <hr>
+    <hr style="margin:25px 0;">
 
-    <h2>Add / Subtract / Multiply</h2>
+    <h2 style="
+    font-family:Arial, sans-serif;
+    font-size:26px;
+    margin-bottom:15px;
+    color:#333;
+    ">
+        Calculate
+    </h2>
 
-    <form method="POST">
-        <input name="a" value="{{a_val}}" placeholder="A" required>
-        <input name="b" value="{{b_val}}" placeholder="B" required>
+    <form method="POST" style="
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:flex-start;
+    margin-left:0;
+    font-family:Arial, sans-serif;
+">
+        <input name="a" value="{{a_val}}" placeholder="A" required style="
+        padding:10px;
+        width:140px;
+        border-radius:6px;
+        border:1px solid #ccc;
+        font-size:16px;
+        box-shadow:inset 0 1px 3px rgba(0,0,0,0.15);
+    ">
+        <input name="b" value="{{b_val}}" placeholder="B" required style="
+        padding:10px;
+        width:140px;
+        border-radius:6px;
+        border:1px solid #ccc;
+        font-size:16px;
+        box-shadow:inset 0 1px 3px rgba(0,0,0,0.15);
+    ">
 
-        <button name="add">Add</button>
-        <button name="subtract">Subtract</button>
-        <button name="multiply">Multiply</button>
+        <button name="add" style="
+        padding:10px 20px;
+        background:#3e8e41;
+        border:none;
+        color:white;
+        border-radius:6px;
+        cursor:pointer;
+        font-size:15px;
+        box-shadow:0 1px 4px rgba(0,0,0,0.2);
+    ">Add</button>
+        <button name="subtract" style="
+        padding:10px 20px;
+        background:#d98a00;
+        border:none;
+        color:white;
+        border-radius:6px;
+        cursor:pointer;
+        font-size:15px;
+        box-shadow:0 1px 4px rgba(0,0,0,0.2);
+    ">Subtract</button>
+        <button name="multiply" style="
+        padding:10px 20px;
+        background:#0074d9;
+        border:none;
+        color:white;
+        border-radius:6px;
+        cursor:pointer;
+        font-size:15px;
+        box-shadow:0 1px 4px rgba(0,0,0,0.2);">Multiply</button>
     </form>
 
     {% if result is not none %}
-        <h3>Add Result: {{ result }}</h3>
+        <h3 style="font-family:Arial; color:#3e8e41; margin-top:20px;">Add Result: {{ result }}</h3>
     {% endif %}
 
     {% if sub_result is not none %}
-        <h3>Subtract Result: {{ sub_result }}</h3>
+        <h3 style="font-family:Arial; color:#d98a00; margin-top:10px;">Subtract Result: {{ sub_result }}</h3>
     {% endif %}
 
     {% if mul_result is not none %}
-        <h3>Multiply Result: {{ mul_result }}</h3>
+        <h3 style="font-family:Arial; color:#0074d9; margin-top:10px;">Multiply Result: {{ mul_result }}</h3>
     {% endif %}
 
 
     <!-- README MODAL -->
     <div id="readmeModal" style="
-        display:none; position:fixed; top:0; left:0;
-        width:100%; height:100%; background:rgba(0,0,0,0.7); padding-top:50px;
-    ">
-        <div style="
-            background:white; max-width:60%; margin:auto; padding:20px;
-            border-radius:10px;
+        display:none;
+        position:fixed;
+        top:0; left:0;
+        width:100%; height:100%;
+        background:rgba(0,0,0,0.7);
+        padding-top:50px;
+        z-index:1000;
         ">
-            <h2>README / CHANGELOG</h2>
-            <pre id="readmeContent" style="white-space: pre-wrap;"></pre>
-            <button onclick="closeReadme()">Close</button>
+        <div style="
+            background:white;
+            max-width:60%;
+            margin:auto;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.3);
+            font-family:Arial, sans-serif;
+        ">
+            <h2 style="margin-top:0; color:#2b2b7c;">README / CHANGELOG</h2>
+            <pre id="readmeContent" style="
+            white-space:pre-wrap;
+            font-size:15px;
+            background:#f4f4f4;
+            padding:10px;
+            border-radius:6px;
+            max-height:60vh;
+            overflow-y:auto;
+            "></pre>
+            <button onclick="closeReadme()" style="
+            margin-top:15px;
+            padding:10px 20px;
+            background:#444;
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            ">
+            Close
+            </button>
         </div>
     </div>
+
 
     <script>
     async function poll() {
@@ -299,25 +460,66 @@ def index():
 
             if (d.update_available) {
                 box.innerHTML = `
-                    Installed: ${d.installed}<br>
-                    Latest: ${d.latest}<br><br>
+                <div style="font-family: Arial; font-size: 16px; color: #22225c;">
+                    <strong>Installed:</strong> ${d.installed}<br>
+                    <strong>Latest:</strong> ${d.latest}<br><br>
+                    
 
                     <form method="POST">
-                        <button name="update">Update to ${d.latest}</button>
+                        <button name="update" style="
+                            padding: 8px 15px;
+                            background: #4b5bd1;
+                            color: white;
+                            border: none;
+                            border-radius: 6px;
+                            font-size: 14px;
+                            cursor: pointer;
+                            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+                            margin-bottom: 10px;
+                        ">
+                        Update to ${d.latest}
+                        </button>
                     </form>
 
-                    <button onclick="openReadme('${d.latest}')">View README</button>
+                    <button onclick="openReadme('${d.latest}')" style="
+                        padding: 8px 15px;
+                        background: #444;
+                        color: white;
+                        border: none;
+                        border-radius: 6px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+                    ">View README</button>
+                    </div>
                 `;
             }
             else {
                 box.innerHTML = `
-                    Installed: ${d.installed}<br>
-                    Latest: ${d.latest}<br>
+                    <div style="font-family: Arial; font-size: 16px;">
+                    <strong>Installed:</strong> ${d.installed}<br>
+                    <strong>Latest:</strong> ${d.latest}<br>
+                </div>
                 `;
 
                 if (d.rollback_available) {
                     box.innerHTML += `
-                        <br><form method="POST"><button name="rollback">Rollback to ${d.previous}</button></form>
+                        <br>
+                        <form method="POST">
+                        <button name="rollback"
+                        style="
+                            padding: 8px 15px;
+                            background: #d9534f;
+                            color: white;
+                            border: none;
+                            border-radius: 6px;
+                            font-size: 14px;
+                            cursor: pointer;
+                            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+                        ">
+                        Rollback to ${d.previous}
+                        </button>
+                        </form>
                     `;
                 }
             }
@@ -341,6 +543,8 @@ def index():
         document.getElementById("readmeModal").style.display = "none";
     }
     </script>
+    </div>
+    </body>
     """
 
     return render_template_string(
